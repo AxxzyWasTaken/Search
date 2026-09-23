@@ -14,6 +14,7 @@ in [ROADMAP.md](ROADMAP.md).
 ### Added
 
 - Pages can draw at 120 frames a second on a 120 Hz screen, or only while the Mac is plugged in. Settings › General › Frame rate. 60 unless changed, as in Safari.
+- Spaces with the tabs across the top: two fingers up or down over the bar, or a notch of a mouse wheel, bring the next space's tabs in as these go; past the last, a new space is made right in the bar. "New Space…" makes it in place in the column too.
 - Reopen Closed Tab is in the right-click menu of every tab, in the row and in the column, beside Close Other Tabs; it was only on ⌘⇧T and in the History menu. Thanks [@andupoto](https://x.com/andupoto) for asking
 - Extensions on private tabs, if you allow them: Settings › Extensions › Allow on private tabs, off by default. It applies to private tabs opened after it is turned on. Thanks [@merttopuz](https://github.com/merttopuz) ([#55](https://github.com/driceroland/Search/pull/55))
 - Scroll with the middle button, as on Windows: click the wheel on a page, then move the mouse up or down; another click stops it. Settings › General › Scroll with the middle button.
@@ -22,11 +23,13 @@ in [ROADMAP.md](ROADMAP.md).
 
 ### Fixed
 
+- Search opens faster when you have many bookmarks: the Bookmarks menu used to be built in full, every folder included, before the window could appear — about a quarter of a second for 1,500 bookmarks, at every launch. Its bookmarks are now put in as the menu opens, a folder's as that folder opens. Thanks [@andupoto](https://x.com/andupoto) for the report
+- Before macOS 15.4, where Search can't run extensions, the Chrome Web Store no longer shows an "Add to Search" button that did nothing when pressed; Settings › Extensions says what they need. Thanks [@andupoto](https://x.com/andupoto) for the report
 - Started hidden — `open -j`, or anything that launches Search in the background — Search comes up with its window, hidden with it until shown, where it could come up with no window at all.
 - A new tab starts loading the moment you press Return or pick a bookmark. Each new tab used to start its web process from cold first — about 40 to 60 milliseconds with the window stuck — where it now takes about 10. Thanks [@andupoto](https://x.com/andupoto) for the report
 - A bookmark picked from the list under its button closes the list as its page starts, instead of leaving it open over the page. Thanks [@andupoto](https://x.com/andupoto) for the report
 - A link pasted into the address field shows at once. Every key and every paste sorted the whole history again for the History menu, and cut every address in it into pieces to find its host, before the field could catch up. Thanks [@andupoto](https://x.com/andupoto) for the report
-- Passkeys from your Mac's keychain: the first time a site asks for one, macOS now asks whether Search may use your passkeys — a permission it had never been asked for, so the passkey a site offers under its sign-in field was refused on the spot. Refused by mistake? System Settings › Privacy & Security › Passkeys Access for Web Browsers.
+- Passkeys work: a site's "Sign in with a passkey" or "Create a passkey" now brings up your Mac's own passkey sheet — Touch ID with your passkeys from iCloud Keychain or a password app, your iPhone over the QR code, or a security key — where it ended in "authentication failed". WebKit only does passkeys for an app's own websites, so Search now carries them out itself, as Chrome does; the first time, macOS asks whether Search may use them. Not yet: the passkey offered under a sign-in field as the page loads — the site's passkey button is the way in for now. ([#17](https://github.com/driceroland/Search/issues/17))
 - ⌘⇧N no longer piles up empty private tabs: one already open comes to the end of the row, as with ⌘T.
 - A new space's choice of sign-ins reads in full in the column ("Signed in" / "Signed out"), where it was cut short.
 
