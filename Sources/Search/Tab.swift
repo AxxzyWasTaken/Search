@@ -57,6 +57,7 @@ enum Web {
         config.mediaTypesRequiringUserActionForPlayback = .audio
         if Store.testing, !Store.measuring { config.preferences.inactiveSchedulingPolicy = .none }
         inspector(config.preferences)
+        MainActor.assumeIsolated { FrameRate.apply(to: config.preferences) }
         return config
     }
 

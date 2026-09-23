@@ -135,6 +135,14 @@ final class Preferences: ObservableObject {
             AutoScroll.on = autoScroll
         }
     }
+    /// 60 frames a second, 120, or 120 only on the cable (see FrameRate.swift).
+    /// 60 unless asked for.
+    @Published var frameRate: FrameRate {
+        didSet {
+            store.set(frameRate.rawValue, forKey: "framerate")
+            FrameRate.chosen = frameRate
+        }
+    }
     /// Separate sets of tabs, each with its own sign-ins (see Spaces.swift).
     /// Off unless asked for.
     @Published var usesSpaces: Bool {
@@ -199,6 +207,9 @@ final class Preferences: ObservableObject {
         let scrolls = store.bool(forKey: "autoscroll")
         autoScroll = scrolls
         AutoScroll.on = scrolls
+        let rate = store.string(forKey: "framerate").flatMap(FrameRate.init) ?? .standard
+        frameRate = rate
+        FrameRate.chosen = rate
         // Left behind by the Web Inspector's switch, from before it was
         // always there.
         store.removeObject(forKey: "inspector")

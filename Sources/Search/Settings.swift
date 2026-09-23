@@ -212,6 +212,10 @@ struct SettingsPanel: View {
                 Switch(on: $prefs.autoScroll)
             }
             Rule()
+            Line("Frame rate", "Animations and scrolling on a 120 Hz screen. 120 is smoother and uses more battery. Open tabs change when reloaded") {
+                Segmented(options: FrameRate.allCases.map { ($0, $0.title) }, selection: $prefs.frameRate)
+            }
+            Rule()
             Line("Let a script drive Search", "A local socket for testing. Its tabs open beside yours with a flask on them and never take over — see ./bench") {
                 Switch(on: $prefs.bench)
             }
