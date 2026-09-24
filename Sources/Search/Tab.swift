@@ -83,7 +83,6 @@ enum Web {
         config.mediaTypesRequiringUserActionForPlayback = .audio
         if Store.testing, !Store.measuring { config.preferences.inactiveSchedulingPolicy = .none }
         inspector(config.preferences)
-        MainActor.assumeIsolated { FrameRate.apply(to: config.preferences) }
         return config
     }
 
@@ -332,6 +331,10 @@ final class Tab: ObservableObject, Identifiable {
     }
 
     private func build() -> PageView {
+        // Here rather than in Web.configuration: a tab's configuration is
+        // made with the tab, often long before its page, and a site or an
+        // extension can hand over one of its own.
+        FrameRate.apply(to: configuration.preferences)
         let web = PageView(frame: .zero, configuration: configuration)
         // The trackpad pinch is WebKit's own: it magnifies what is on screen
         // and lets you move around inside it, the way pinching does everywhere

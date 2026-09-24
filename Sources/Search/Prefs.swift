@@ -135,12 +135,12 @@ final class Preferences: ObservableObject {
             AutoScroll.on = autoScroll
         }
     }
-    /// 60 frames a second, 120, or 120 only on the cable (see FrameRate.swift).
-    /// 60 unless asked for.
-    @Published var frameRate: FrameRate {
+    /// Pages draw at 120 frames a second on a screen that can (see FrameRate.swift).
+    /// Off unless asked for.
+    @Published var fastPages: Bool {
         didSet {
-            store.set(frameRate.rawValue, forKey: "framerate")
-            FrameRate.chosen = frameRate
+            store.set(fastPages, forKey: "pages.120")
+            FrameRate.fast = fastPages
         }
     }
     /// Two fingers flick the floating video to a corner (see Float.swift).
@@ -224,9 +224,9 @@ final class Preferences: ObservableObject {
         let scrolls = store.bool(forKey: "autoscroll")
         autoScroll = scrolls
         AutoScroll.on = scrolls
-        let rate = store.string(forKey: "framerate").flatMap(FrameRate.init) ?? .standard
-        frameRate = rate
-        FrameRate.chosen = rate
+        let fast = store.bool(forKey: "pages.120")
+        fastPages = fast
+        FrameRate.fast = fast
         // Left behind by the Web Inspector's switch, from before it was
         // always there.
         store.removeObject(forKey: "inspector")
